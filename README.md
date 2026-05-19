@@ -14,10 +14,3 @@ AI Prescription Reader is a Flask-based web application that converts handwritte
 - OpenCV
 - EasyOCR
 
-## Installation
-
-### Step 1: Clone Project
-
-```bash
-git clone <repository-link>
-cd AI-Prescription-Reader
