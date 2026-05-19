@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Prescription Reader</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+    <h1>AI Prescription Reader</h1>
+
+    <div class="upload-box">
+        <input type="file" id="imageInput" accept="image/*">
+        <button onclick="uploadImage()">Extract Text</button>
+    </div>
+
+    <div class="result-box">
+        <h2>Extracted Prescription Text</h2>
+        <textarea id="resultText" readonly></textarea>
+    </div>
+</div>
+
+<script>
+async function uploadImage() {
+    const input = document.getElementById('imageInput');
+
+    if (input.files.length === 0) {
+        alert('Please select an image');
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append('image', input.files[0]);
+
+    try {
+        const response = await fetch('/upload', {
+            method: 'POST',
+            body: formData
+        });
+
+        const data = await response.json();
+
+        document.getElementById('resultText').value = data.text || data.error;
+
+    } catch (error) {
+        alert('Error uploading image');
+        console.error(error);
+    }
+}
+</script>
+
+</body>
+</html>
